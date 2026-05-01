@@ -1,0 +1,409 @@
+install.packages('Seurat')
+library(RColorBrewer)
+install.packages("extrafont")
+library(extrafont)
+font_import()
+loadfonts(device="win") 
+fonts() 
+
+
+library(Seurat)
+.libPaths()
+library(dplyr)
+x.getPalette <- colorRampPalette(brewer.pal(12, "Paired"))
+########################################################################################################################################
+
+########All_Blood
+x.obj.filter = readRDS("E:/nicesoung/Exercise_Neutrophil/GROUPSample/All_Blood/Harmony/R(5)0.3_Realfinal/Seurat.celltype.RDS")
+head(x.obj.filter)
+tail(x.obj.filter)
+
+temp.cluster.color <- x.getPalette(length(unique(x.obj.filter@meta.data$seurat_clusters)))
+DimPlot(object = x.obj.filter, reduction = "umap", label = T, pt.size = 0.5, label.size = 6, cols = temp.cluster.color)
+
+###운동안한그룹룹
+T.data = subset(x.obj.filter, orig.ident %in% c('All-Sed2-Blood'))
+temp.cluster.color1 <- x.getPalette(length(unique(T.data@meta.data$celltypes)))
+
+unique(T.data$celltypes)
+
+DimPlot(object = T.data, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Other","T cell","B cell","Monocyte"))+
+  theme(plot.subtitle = element_text(face = "bold"))+
+  theme(text=element_text(family="Arial", face="bold"))+
+  ggtitle("All-Sed2-Blood")
+
+
+list <- c("#E97C6E","#D38D22", "#C4AA44","#6CB225","#4FBE95")
+
+
+
+
+png(filename = paste("E:/Research/Exercise/그림/All-Sed2-Blood_수정.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(DimPlot(object = T.data, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Other","T cell","B cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("All-Sed2-Blood"))
+  
+
+dev.off()
+
+
+
+
+###운동한 그룹룹
+T.data2 = subset(x.obj.filter, orig.ident %in% c('All-Exe7-Blood'))
+temp.cluster.color2 <- x.getPalette(length(unique(T.data2@meta.data$celltypes)))
+DimPlot(object = T.data2, group.by = "celltypes", reduction = "umap", label = T, pt.size = 0.5, label.size = 6, cols = temp.cluster.color2)
+png(filename = paste("E:/Research/Exercise/그림/All-Exe7-Blood_수정.png", sep=""),   width=2000, height=2000,res=200,  type="cairo")
+print(DimPlot(object = T.data2, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Other","T cell","B cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("All-Exe7-Blood"))
+dev.off()
+
+list <- c("#E97C6E","#D38D22", "#C4AA44","#6CB225","#4FBE95")
+
+########################################################################################################################################
+
+########All_Bone
+x.obj.filter.All.bone = readRDS("E:/nicesoung/Exercise_Neutrophil/GROUPSample/All_Bone/Harmony/R(7)0.1_Realfinal/Seurat.celltype.RDS")
+head(x.obj.filter.All.bone)
+tail(x.obj.filter.All.bone)
+
+temp.cluster.color.All.bone <- x.getPalette(length(unique(x.obj.filter.All.bone@meta.data$seurat_clusters)))
+DimPlot(object = x.obj.filter.All.bone, reduction = "umap", label = T, pt.size = 0.5, label.size = 6, cols = temp.cluster.color.All.bone)
+
+###운동안한그룹룹
+T.data.All.bone = subset(x.obj.filter.All.bone, orig.ident %in% c('All-Sed2-Bone'))
+temp.cluster.All.bone.color1 <- x.getPalette(length(unique(T.data.All.bone@meta.data$celltypes)))
+DimPlot(object = T.data.All.bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = temp.cluster.All.bone.color1)
+png(filename = paste("E:/Research/Exercise/그림/All-Sed2-Bone_수정.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(DimPlot(object = T.data.All.bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Mast cell","T cell","B cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("All-Sed2-Bone"))
+
+dev.off()
+
+###운동한 그룹룹
+T.data2.all.bone = subset(x.obj.filter.All.bone, orig.ident %in% c('All-Exe7-Bone'))
+temp.cluster.all.bone.color2 <- x.getPalette(length(unique(T.data2.all.bone@meta.data$celltypes)))
+DimPlot(object = T.data2.all.bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = temp.cluster.all.bone.color2)
+png(filename = paste("E:/Research/Exercise/그림/All-Exe7-Bone_수정.png", sep=""),   width=2000, height=2000,res=200,  type="cairo")
+print(DimPlot(object = T.data2.all.bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Mast cell","T cell","B cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("All-Exe7-Bone"))
+dev.off()
+
+
+########################################################################################################################################
+
+########NP_Blood
+x.obj.filter.NP.Blood = readRDS("E:/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Blood/Harmony/R(7)0.3_realfinal/Seurat.celltype.RDS")
+head(x.obj.filter.NP.Blood)
+tail(x.obj.filter.NP.Blood)
+
+temp.cluster.color.NP.Blood <- x.getPalette(length(unique(x.obj.filter.NP.Blood@meta.data$seurat_clusters)))
+DimPlot(object = x.obj.filter.NP.Blood, reduction = "umap", label = T, pt.size = 0.5, label.size = 6, cols = temp.cluster.color.NP.Blood)
+
+###운동안한그룹룹
+list <- c("#E97C6E","#D38D22","#6CB225")
+
+T.data.NP.Blood = subset(x.obj.filter.NP.Blood, orig.ident %in% c('NP-Sed3-Blood'))
+temp.cluster.NP.Blood.color1 <- x.getPalette(length(unique(T.data.NP.Blood@meta.data$celltypes)))
+DimPlot(object = T.data.NP.Blood, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = temp.cluster.NP.Blood.color1)
+png(filename = paste("E:/Research/Exercise/그림/NP-Sed3-Blood_수정.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(DimPlot(object = T.data.NP.Blood, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","T cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("NP-Sed3-Blood"))
+dev.off()
+
+###운동한 그룹룹
+T.data2.NP.Blood = subset(x.obj.filter.NP.Blood, orig.ident %in% c('NP-Exe1-Blood'))
+temp.cluster.NP.Blood.color2 <- x.getPalette(length(unique(T.data2.NP.Blood@meta.data$celltypes)))
+DimPlot(object = T.data2.NP.Blood, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = temp.cluster.NP.Blood.color2)
+png(filename = paste("E:/Research/Exercise/그림/NP-Exe1-Blood_수정.png", sep=""),   width=2000, height=2000,res=200,  type="cairo")
+print(DimPlot(object = T.data2.NP.Blood, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","T cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("NP-Exe1-Blood"))
+dev.off()
+
+
+########################################################################################################################################
+
+########NP_Bone
+x.obj.filter.NP.Bone = readRDS("E:/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Bone/Harmony/R(4)0.5_Realfinal/Seurat.celltype.RDS")
+head(x.obj.filter.NP.Bone)
+tail(x.obj.filter.NP.Bone)
+
+temp.cluster.color.NP.Bone <- x.getPalette(length(unique(x.obj.filter.NP.Bone@meta.data$seurat_clusters)))
+DimPlot(object = x.obj.filter.NP.Bone, reduction = "umap", label = T, pt.size = 0.5, label.size = 6, cols = temp.cluster.color.NP.Bone)
+
+###운동안한그룹룹
+list <- c("#E97C6E","#D38D22", "#C4AA44","#6CB225","#4FBE95")
+
+T.data.NP.Bone = subset(x.obj.filter.NP.Bone, orig.ident %in% c('NP-Sed3-Bone'))
+temp.cluster.NP.Bone.color1 <- x.getPalette(length(unique(T.data.NP.Bone@meta.data$celltypes)))
+DimPlot(object = T.data.NP.Bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = temp.cluster.NP.Bone.color1)
+png(filename = paste("E:/Research/Exercise/그림/NP-Sed3-Bone_수정.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(DimPlot(object = T.data.NP.Bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Other","Mast cell","B cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("NP-Sed3-Bone"))
+dev.off()
+
+###운동한 그룹룹
+T.data2.NP.Bone = subset(x.obj.filter.NP.Bone, orig.ident %in% c('NP-Exe1-Bone'))
+temp.cluster.NP.Bone.color2 <- x.getPalette(length(unique(T.data2.NP.Bone@meta.data$celltypes)))
+DimPlot(object = T.data2.NP.Bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = temp.cluster.NP.Bone.color2)
+png(filename = paste("E:/Research/Exercise/그림/NP-Exe1-Bone_수정.png", sep=""),   width=2000, height=2000,res=200,  type="cairo")
+print(DimPlot(object = T.data2.NP.Bone, group.by = "celltypes", reduction = "umap", label = F, pt.size = 0.5, label.size = 6, cols = list, order = c("Nuetrophil","Other","Mast cell","B cell","Monocyte"))+
+        theme(plot.subtitle = element_text(face = "bold"))+
+        theme(text=element_text(family="Arial", face="bold"))+
+        ggtitle("NP-Exe1-Bone"))
+dev.off()
+
+
+
+
+
+###########Subtype 별로 나누어두기
+x.obj.filter = readRDS("E:/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Bone/Harmony/R(4)0.5_Realfinal/Seurat.celltype.RDS")
+head(x.obj.filter)
+unique(x.obj.filter$celltypes)
+T.data = subset(x.obj.filter, celltypes %in% c('Mast cell'))
+saveRDS(T.data, paste0("E:/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Bone/Harmony/R(4)0.5_Realfinal/Subtyping/Mast_cell/Seurat.RDS"))
+
+
+
+###########DEG분석 진행
+
+
+rds.file = "E:/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Blood/Harmony/R(7)0.3_realfinal/Subtyping/Neutrophil/Seurat.RDS"
+rds.data = readRDS(rds.file)
+rds.dir = dirname(rds.file)
+
+'%ni%' <- Negate('%in%')
+#ds.data = subset(rds.data, orig.ident %ni% c('All-Exe7-Blood','All-Sed2-Blood'))
+
+meta.df = rds.data@meta.data
+# survival.array = unique(meta.df$Survival)
+Idents(rds.data) = meta.df$orig.ident
+output.dir = paste0(rds.dir, "/Exercise_vs_NoExercise_DEG")
+dir.create(output.dir, showWarnings = F)
+output.dir = paste0(rds.dir, "/Exercise_vs_NoExercise_DEG")
+dir.create(output.dir, showWarnings = F)
+head(rds.data)
+tail(rds.data)
+#output.dir = paste0(rds.dir, "/T_vs_NT.DEG/Advanced")
+#dir.create(output.dir, showWarnings = F)
+# marker.df = FindMarkers(rds.data, ident.1 = "Short-term", ident.2 = "Long-term", min.pct = 0.1, logfc.threshold = 0, test.use = "wilcox", assay="RNA", slot="data")
+marker.df = FindMarkers(rds.data, ident.1 = c('NP-Exe1-Blood'), ident.2 = c('NP-Sed3-Blood'), min.pct = 0.1, logfc.threshold = 0, test.use = "wilcox", assay="RNA", slot="data")
+# marker.df = subset(x.markers, cluster == tmp.smoking)
+#mt.index = which(substr(rownames(marker.df), 0, 3) == "MT-")
+#if(length(mt.index) > 0) {
+# marker.df = marker.df[-mt.index,]
+#}
+marker.file = paste0(output.dir, "/marker.txt")
+write.table(marker.df, marker.file, sep = "\t", quote = F, row.names = T, col.names = T)
+#write.xlsx(marker.df, gsub("txt", "xlsx", marker.file), row.names = T)
+
+
+#####subset and findmarkers by patients
+#patients = unique(meta.df$patient)
+#patients = "ES03"
+#for (patient in patients) {
+#  rds.data.subset = subset(rds.data, rds.data@meta.data$patient %in% patient)
+#  marker.subset.df = FindMarkers(rds.data.subset, ident.1 = "T", ident.2 = "NT", min.pct = 0.1, logfc.threshold = 0, test.use = "wilcox", assay="RNA", slot="data")
+#  marker.subset.file = paste0(output.dir, "/", patient, ".marker.txt")
+#  write.table(marker.subset.df, marker.subset.file, sep = "\t", quote = F, row.names = T, col.names = T)
+
+
+
+
+# Volcano based on the survival status
+
+#rm(list=ls())
+library(ggplot2)
+library(ggrepel)
+library(Seurat)
+#library(xlsx)
+rds.dir = "/BiO/Live/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Blood/Harmony/R(7)0.3/Subtyping/Neutrophil/R(7)0.3"
+marker.file = "/BiO/Live/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Blood/Harmony/R(7)0.3/Subtyping/Neutrophil/R(7)0.3/Exercise_vs_NoExercise_DEG/marker.txt"
+#marker.file = "/BiO/Research/UNIST-Liver_Cancer_scRNAseq-SCHU-2021-02/Analysis/Seurat/GROUPSample2/Subtyping/Hepatocyte/R0.8/T_vs_NT.DEG/Advanced/marker.txt"
+
+
+cell.type= "Neutrophil"
+print(marker.file)
+marker.df = read.delim(marker.file, header = T, as.is = T)
+output.dir = dirname(marker.file)
+if(!("gene" %in% names(marker.df))){
+  marker.df$gene = rownames(marker.df)
+}
+marker.df$logP = -log10(marker.df$p_val)
+inf.array = which(marker.df$logP == "Inf")
+if(length(inf.array) > 0) {
+  marker.df[inf.array,"logP"] = max(marker.df[-inf.array,"logP"])
+}
+# Marker gene extraction
+marker.df$avg_log2FC = log2(exp(marker.df$avg_log2FC))
+sig.marker.df = subset(marker.df, p_val < 0.05 & abs(avg_log2FC) >= 0.5)
+sig.marker.df$AUC = abs(sig.marker.df$avg_log2FC * sig.marker.df$logP)
+down.sig.df = subset(sig.marker.df, avg_log2FC < 0)
+down.sig.df = down.sig.df[order(down.sig.df$AUC, decreasing = T),]
+up.sig.df = subset(sig.marker.df, avg_log2FC > 0)
+up.sig.df = up.sig.df[order(up.sig.df$AUC, decreasing = T),]
+# Save the result
+out.file = paste0(output.dir, "/Seurat.marker.png")
+write.table(rownames(down.sig.df), paste0(output.dir, "/MSigDB.DOWN.input.txt"), col.names = F, row.names = F, quote = F,  sep = "\t")
+write.table(rownames(up.sig.df), paste0(output.dir, "/MSigDB.UP.input.txt"), col.names = F, row.names = F, quote = F,  sep = "\t")
+down.gene.df = down.sig.df[1:5,]
+up.gene.df = up.sig.df[1:5,]
+# Volcano
+if(nrow(down.gene.df) > 0 && nrow(up.gene.df) > 0) {
+  vol.plot = ggplot() +
+    geom_point(data = marker.df, aes(x = avg_log2FC, y = logP), colour = "grey", size = 5) +
+    geom_point(data = down.sig.df, aes(x = avg_log2FC, y = logP), colour = "blue", size = 5) +
+    geom_point(data = up.sig.df, aes(x = avg_log2FC, y = logP), colour = "red", size = 5) +
+    geom_vline(xintercept = -0.5, linetype = "dashed", size = 2) +
+    geom_vline(xintercept = 0.5, linetype = "dashed", size = 2) +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed", size = 2) +
+    geom_label_repel(data = down.gene.df, aes(x = avg_log2FC, y = logP, label = gene, fill = "blue"), size = 15, colour="white", segment.colour="blue", nudge_y = 0.5, nudge_x = -2, fontface = 'bold', segment.size = 1, force = 50) +
+    geom_label_repel(data = up.gene.df, aes(x = avg_log2FC, y = logP, label = gene, fill = "red"), size = 15, colour="white", segment.colour="red", nudge_y = 0.5, nudge_x = 2, fontface = 'bold', segment.size = 1, force = 50) +
+    scale_fill_manual(values = c("blue", "red")) +
+    xlim(c(-ceiling(max(abs(marker.df$avg_log2FC))),ceiling(max(abs(marker.df$avg_log2FC))))) +
+    ylim(c(0,ceiling(max(marker.df$logP)))) +
+    ylab(expression(-log[10](p~value))) +
+    xlab(expression(log[2](Fold~Change))) +
+    ggtitle(paste0("Exercise vs. NoExercise")) +
+    theme_classic(base_size = 50, base_family = 'bold') +
+    theme(legend.position = "none", strip.background = element_blank(), panel.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black", size = 2), axis.title.y = element_text(face = 'bold'), axis.text.y = element_text(face = 'bold'), axis.text.x = element_text(face = 'bold'), axis.title.x = element_text(face = 'bold'), plot.title = element_text(face = 'bold', hjust = 0.5, size = 40))
+}
+png(out.file, width = 1000, height = 1000, type="cairo")
+print(vol.plot)
+dev.off()
+# Without text
+vol.plot = ggplot() +
+  geom_point(data = marker.df, aes(x = avg_log2FC, y = logP), colour = "grey", size = 5) +
+  geom_point(data = down.sig.df, aes(x = avg_log2FC, y = logP), colour = "blue", size = 5) +
+  geom_point(data = up.sig.df, aes(x = avg_log2FC, y = logP), colour = "red", size = 5) +
+  geom_vline(xintercept = -0.5, linetype = "dashed", size = 2) +
+  geom_vline(xintercept = 0.5, linetype = "dashed", size = 2) +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed", size = 2) +
+  scale_fill_manual(values = c("blue", "red")) +
+  xlim(c(-ceiling(max(abs(marker.df$avg_log2FC))),ceiling(max(abs(marker.df$avg_log2FC))))) +
+  ylim(c(0,ceiling(max(marker.df$logP)))) +
+  ylab(expression(-log[10](p~value))) +
+  xlab(expression(log[2](Fold~Change))) +
+  ggtitle(paste0("Exercise vs. NoExercise")) +
+  theme_classic(base_size = 40, base_family = 'sans') +
+  theme(legend.position = "none", strip.background = element_blank(), panel.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black", size = 2), axis.title = element_blank(), axis.text = element_blank(), plot.title = element_blank())
+out.file = paste0(output.dir, "/Seurat.marker.wt.png")
+png(out.file, width = 900, height = 900, type="cairo")
+print(vol.plot)
+dev.off()
+
+# enrichR based on the survival status
+install.packages("enrichR")
+#rm(list=ls())
+library(enrichR)
+dbs <- c("MSigDB_Hallmark_2020")
+survival.dir = file.path("/BiO/Live/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Blood/Harmony/R(7)0.3/Subtyping/Neutrophil/R(7)0.3/Exercise_vs_NoExercise_DEG")
+#survival.dir = file.path("/BiO/Research/UNIST-Liver_Cancer_scRNAseq-SCHU-2021-02/Analysis/Seurat/GROUPSample/Subtyping/Hepatocyte/R0.8/T_vs_NT.DEG/Advanced")
+
+marker.file = file.path(paste0(survival.dir, "/marker.txt"))
+marker.dir = dirname(marker.file)
+marker.df = read.delim(marker.file, header = T, as.is = T)
+if(!("gene" %in% names(marker.df))){
+  marker.df$gene = rownames(marker.df)
+}
+marker.df$avg_log2FC = log2(exp(marker.df$avg_log2FC))
+sig.marker.df = subset(marker.df, p_val < 0.05 & abs(avg_log2FC) >= 0.5 & pct.1 >= 0.1)
+sig.marker.df = sig.marker.df[order(abs(sig.marker.df$avg_log2FC), decreasing = T),]
+up.genes = subset(sig.marker.df, avg_log2FC >= 0)$gene
+down.genes = subset(sig.marker.df, avg_log2FC <= 0)$gene
+merge.genes = sig.marker.df$gene
+up.enriched <- enrichr(up.genes, dbs)
+down.enriched <- enrichr(down.genes, dbs)
+merge.enriched <- enrichr(merge.genes, dbs)
+enrich.dir = paste0(marker.dir, "/enrichR")
+dir.create(enrich.dir, showWarnings = F)
+up.msdb = up.enriched[[1]]
+if(length(up.msdb) > 0) {
+  write.table(up.msdb, paste0(enrich.dir, "/", gsub("marker", "MsigDB.UP", basename(marker.file))), sep = "\t", quote = F, col.names = T, row.names = F)
+}
+down.msdb = down.enriched[[1]]
+if(length(down.msdb) > 0) {
+  write.table(down.msdb, paste0(enrich.dir, "/", gsub("marker", "MsigDB.DOWN", basename(marker.file))), sep = "\t", quote = F, col.names = T, row.names = F)
+}
+merge.msdb = merge.enriched[[1]]
+if(length(merge.msdb) > 0) {
+  write.table(merge.msdb, paste0(enrich.dir, "/", gsub("marker", "MsigDB.MERGE", basename(marker.file))), sep = "\t", quote = F, col.names = T, row.names = F)
+}
+# MSigDB plot
+msigdb.files = Sys.glob("/BiO/Live/nicesoung/Exercise_Neutrophil/GROUPSample/NP_Blood/Harmony/R(7)0.3/Subtyping/Neutrophil/R(7)0.3/Exercise_vs_NoExercise_DEG/enrichR/MsigDB.*.txt")
+#msigdb.files = Sys.glob("/BiO/Research/UNIST-Liver_Cancer_scRNAseq-SCHU-2021-02/Analysis/Seurat/GROUPSample2/Subtyping/Hepatocyte/R0.8/T_vs_NT.DEG/Advanced/enrichR/MsigDB.*.txt")
+
+msigdb.files = msigdb.files[-grep("MERGE", msigdb.files)]
+for(x in 1:length(msigdb.files)) {
+  msigdb.file = msigdb.files[x]
+  msigdb.dir = dirname(msigdb.file)
+  tmp.smoking = basename(dirname(msigdb.dir))
+  tmp.case = strsplit(basename(msigdb.file), "\\.")[[1]][2]
+  if(tmp.case == "DOWN") {
+    tmp.case = "Down"
+    tmp.color = "#A1CAFF"
+  }
+  if(tmp.case == "UP") {
+    tmp.case = "Up"
+    tmp.color = "#FFA1A1"
+  }
+  marker.file = paste0(dirname(msigdb.dir), "/marker.txt")
+  marker.df = read.delim(marker.file, header = T, as.is = T)
+  msigdb.df = read.delim(msigdb.file, header = T, as.is = T)
+  msigdb.df = msigdb.df[order(msigdb.df$P.value, decreasing = F),]
+  sig.df = subset(msigdb.df, P.value < 0.05)
+  if(nrow(sig.df) == 0) {
+    next
+  }
+  plot.df = sig.df[1:5,c("P.value", "Term")]
+  for(i in 1:5) {
+    tmp.genes = strsplit(sig.df[i,"Genes"], ";")[[1]]
+    tmp.fc = abs(marker.df[tmp.genes,"avg_log2FC"])
+    tmp.top.genes = tmp.genes[order(tmp.fc, decreasing = T)[1:7]]
+    b.array = which(is.na(tmp.top.genes))
+    if(length(b.array) > 0) {
+      tmp.top.genes = tmp.top.genes[-b.array]
+    }
+    plot.df[i,"Gene"] = paste(tmp.top.genes, collapse = ", ")
+  }
+  plot.df$x_co = c(nrow(plot.df):1)
+  plot.df$logP = -log10(plot.df$P.value)
+  b.array = which(is.na(plot.df$Term))
+  if(length(b.array) > 0) {
+    plot.df[b.array,"Term"] = ""
+    plot.df[b.array,"logP"] = 0
+  }
+  out.file = paste0(msigdb.dir, "/", tmp.case, "_in_Exercise_group.png")
+  cat(out.file, "\n")
+  msigdb.plot = ggplot() +
+    geom_bar(data = plot.df, aes(x = x_co, y = logP, fill = "A"), stat = 'identity') +
+    scale_fill_manual(values = tmp.color) +
+    scale_y_continuous(expand = c(0.01, 0)) +
+    scale_x_discrete(limits = as.character(c(1:nrow(plot.df))), labels = rev(plot.df$Term)) +
+    theme_classic(base_size = 25, base_family = 'sans') +
+    geom_text(data = plot.df, aes(x= x_co, y = 0, label = Gene), size = 7, hjust = 0) +
+    ylab(expression(-log[10](P~value))) +
+    xlab("") +
+    theme(legend.position = "none", strip.background = element_blank(), axis.title.y = element_text(), axis.title.x = element_text(), axis.text.y = element_text(), axis.text.x = element_text(),
+          plot.title = element_text()) +
+    ggtitle(paste0(tmp.case, " in Exercise group")) +
+    coord_flip()
+  # pdf(out.file, width = 15, height = 5)
+  png(out.file, width = 960, height = 480, type="cairo")
+  print(msigdb.plot)
+  dev.off()
+}
