@@ -1,0 +1,277 @@
+##########서울대 celltype 별로  그래프
+
+library(ggplot2)
+library(extrafont)
+font_import()
+loadfonts(device="win") 
+fonts() 
+
+All_Blood <- read.csv("E:/Research/Exercise/그림/All_Blood.csv")
+All_Blood
+
+
+
+
+#####All_Blood
+################percent
+p <- ggplot(data=All_Blood, aes(x=Celltype, y=Percent, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c("Other", "T cell", "B cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("All_Blood"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "% of Total Immune Cells",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=8),
+           axis.title=element_text(size=10,face="bold",family="Arial"))
+
+############Count
+p <- ggplot(data=All_Blood, aes(x=Celltype, y=Count, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c("Other", "T cell", "B cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("All_Blood"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "Count",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=18,face="bold",family="Arial"),
+          plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+  scale_y_continuous(limits = c(0,9000),expand = expansion(0,0))
+
+
+###########저장
+png(filename = paste("E:/Research/Exercise/그림/All_Blood_Barplot_Count.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(p + theme(axis.text=element_text(size=12),
+                axis.title=element_text(size=18,face="bold",family="Arial"),
+                plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+        scale_y_continuous(limits = c(0,9000),expand = expansion(0,0)))
+
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+All_Bone <- read.csv("E:/Research/Exercise/그림/All_Bone.csv")
+All_Bone
+
+
+
+
+#####All_Bone
+################percent
+p <- ggplot(data=All_Bone, aes(x=Celltype, y=Percent, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c("Mast cell", "T cell", "B cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("All_Bone"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "% of Total Immune Cells",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=8),
+          axis.title=element_text(size=10,face="bold",family="Arial"))
+
+############Count
+p <- ggplot(data=All_Bone, aes(x=Celltype, y=Count, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c("Mast cell", "T cell", "B cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("All_Bone"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "Count",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=18,face="bold",family="Arial"),
+          plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+  scale_y_continuous(limits = c(0,9000),expand = expansion(0,0))
+
+
+###########저장
+png(filename = paste("E:/Research/Exercise/그림/All_Bone_Barplot_count.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(p + theme(axis.text=element_text(size=12),
+                axis.title=element_text(size=18,face="bold",family="Arial"),
+                plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+        scale_y_continuous(limits = c(0,9000),expand = expansion(0,0)))
+
+
+dev.off()
+
+
+
+
+
+
+
+NP_Blood <- read.csv("E:/Research/Exercise/그림/NP_Blood.csv")
+NP_Blood
+
+
+
+
+#####All_Bone
+################percent
+p <- ggplot(data=NP_Blood, aes(x=Celltype, y=Percent, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c( "T cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("NP_Blood"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "% of Total Immune Cells",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=8),
+          axis.title=element_text(size=10,face="bold",family="Arial"))
+
+############Count
+p <- ggplot(data=NP_Blood, aes(x=Celltype, y=Count, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c( "T cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("NP_Blood"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "Count",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=18,face="bold",family="Arial"),
+          plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+  scale_y_continuous(limits = c(0,11000),expand = expansion(0,0))
+
+
+###########저장
+png(filename = paste("E:/Research/Exercise/그림/NP_Blood_Barplot_percent.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(p + theme(axis.text=element_text(size=12),
+                axis.title=element_text(size=18,face="bold",family="Arial"),
+                plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+        scale_y_continuous(limits = c(0,100),expand = expansion(0,0)))
+
+
+dev.off()
+
+
+
+
+
+
+
+NP_Bone <- read.csv("E:/Research/Exercise/그림/NP_Bone.csv")
+NP_Bone
+
+
+
+
+#####All_Bone
+################percent
+p <- ggplot(data=NP_Bone, aes(x=Celltype, y=Percent, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c( "Other", "Mast cell", "B cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("NP_Bone"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "% of Total Immune Cells",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=8),
+          axis.title=element_text(size=10,face="bold",family="Arial"))
+
+############Count
+p <- ggplot(data=NP_Bone, aes(x=Celltype, y=Count, fill=Stat)) +
+  geom_bar(stat="identity", position=position_dodge(), size=1,color="black") +
+  scale_x_discrete(limits=c( "Other", "Mast cell", "B cell", "Monocyte", "Neutrophil"))+
+  scale_fill_manual(values=c('#D4D4D4','#30698C'))+
+  theme_classic()+
+  theme(text=element_text(family="Arial", face="bold"),
+        axis.ticks = element_line(colour = "black", size = 0.5),
+        axis.line.x.bottom=element_line(size=0.5),
+        axis.line.y.left=element_line(size=0.5))+
+  coord_flip()+
+  ggtitle(("NP_Bone"))+
+  theme(plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 10),
+        axis.title = element_text(family="Arial", face="bold"))+
+  labs(y = "Count",
+       x = "Celltypes",
+       fill = "")
+
+p + theme(axis.text=element_text(size=12),
+          axis.title=element_text(size=18,face="bold",family="Arial"),
+          plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+  scale_y_continuous(limits = c(0,8000),expand = expansion(0,0))
+
+
+###########저장
+png(filename = paste("E:/Research/Exercise/그림/NP_Bone_Barplot_count.png", sep=""), width=2000, height=2000,res=200, type="cairo")
+print(p + theme(axis.text=element_text(size=12),
+                axis.title=element_text(size=18,face="bold",family="Arial"),
+                plot.title = element_text(hjust = 0.5, family="Arial", face="bold", size = 18))+
+        scale_y_continuous(limits = c(0,8000),expand = expansion(0,0)))
+
+
+dev.off()
